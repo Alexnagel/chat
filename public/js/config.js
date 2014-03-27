@@ -10,8 +10,17 @@ angular.module('chat').config(['$stateProvider', '$urlRouterProvider',
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'views/index.html'
-    });
+        views: {
+          "indexPanel" : {
+            templateUrl: "views/index.html",
+            controller: "IndexController"
+          }
+        }
+    })
+      .state('signup', {
+        url: '/signup',
+        templateUrl: 'views/signup.html'
+      });
 }
 ]);
 
