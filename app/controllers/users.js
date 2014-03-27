@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    User = mongoose.model('User');
+    User     = mongoose.model('User');
 
 /**
  * Auth callback
@@ -61,10 +61,10 @@ exports.create = function(req, res, next) {
             switch (err.code) {
                 case 11000:
                 case 11001:
-                    message = 'Username already exists';
+                    message = 'Gebruikersnaam bestaat al';
                     break;
                 default:
-                    message = 'Please fill all the required fields';
+                    message = 'Vul aub alle velden in';
             }
 
             return res.render('users/signup', {

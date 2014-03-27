@@ -20,6 +20,8 @@ var UserSchema = new Schema({
         type: String,
         unique: true
     },
+    latitude: String,
+    longitude: String,
     description: String,
     image: String,
     hashed_password: String,
@@ -126,5 +128,7 @@ UserSchema.methods = {
         return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
     }
 };
+
+
 
 mongoose.model('User', UserSchema);

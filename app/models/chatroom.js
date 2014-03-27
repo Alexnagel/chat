@@ -23,7 +23,10 @@ var ChatroomSchema = new Schema({
 		type: String,
 		required: true
 	},
-	description: String
+	description: String,
+	users : {
+		user_id: Number
+	}
 });
 
 /**
@@ -33,7 +36,7 @@ var validatePresenceOf = function(value) {
     return value && value.length;
 };
 
-ChatroomScheme.path('name').validate(function(name){
+ChatroomSchema.path('name').validate(function(name){
 	return (typeof name === 'string' && name.length > 0);
 }, 'Naam mag niet leeg zijn');
 

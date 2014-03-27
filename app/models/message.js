@@ -10,8 +10,12 @@ var mongoose = require('mongoose'),
 /**
  * The Message Schema
  */
-var MessageScheme = new Schema({
+var MessageSchema = new Schema({
 	id: {
+		type: Number,
+		required: true
+	},
+	chatroom_id: {
 		type: Number,
 		required: true
 	},
@@ -33,8 +37,8 @@ var validatePresenceOf = function(value) {
     return value && value.length;
 };
 
-ChatroomScheme.path('content').validate(function(content){
+MessageSchema.path('content').validate(function(content){
 	return (typeof content === 'string' && content.length > 0);
 }, 'Bericht mag niet leeg zijn');
 
-mongoose.model('Message', MessageScheme);
+mongoose.model('Message', MessageSchema);
