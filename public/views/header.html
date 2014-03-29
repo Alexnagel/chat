@@ -20,12 +20,12 @@
           </ul>
           
           <!-- Sign in form -->
-          <form class="navbar-form navbar-right" role="form" action="/signin"  data-ng-hide="global.authenticated">
+          <form class="navbar-form navbar-right" role="form" ng-submit="submit()"  data-ng-hide="global.authenticated">
             <div class="form-group">
-              <input type="text" placeholder="Username" class="form-control">
+              <input type="text" placeholder="Username" ng-model="username" name="username" class="form-control">
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
+              <input type="password" placeholder="Password" ng-model="password" name="password" class="form-control">
             </div>
             <button type="submit" class="btn btn-success">Sign in</button>&nbsp;
             <a ui-route="/signup" href="#!/signup" class="navbar-link ng-scope">Create an account.</a>

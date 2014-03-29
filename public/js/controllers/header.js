@@ -7,6 +7,12 @@ angular.module('chat.system').controller('HeaderController', ['$scope', 'Global'
         'title': '',
         'link': ''
     }];
+
+    $scope.submit = function() {
+    	if($scope.username && $scope.password) {
+    		SignAuth.login({username: $scope.username, password: $scope.password});
+    	}
+    };
     
     $scope.isCollapsed = false;
 }]);
