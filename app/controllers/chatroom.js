@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 var mongoose 	= require('mongoose'),
-    Chatroom	= mongoose.model('Chatroom');
+    Chatroom	= mongoose.model('Chatroom'),
+    Message		= mongoose.model('Message');
 
 exports.chatroom = function(req, res, next, id) {
 	Chatroom.findOne({
@@ -18,6 +19,24 @@ exports.chatroom = function(req, res, next, id) {
         });
 };
 
+exports.getChatroom = function(req, res) {
+	Chatroom.findOne({
+		id: req.chatroomId
+	})
+	.exec(function(err, room){
+		if(!err) {
+			Message.find({
+				chatroom_id: req.chatroomId
+			}).exec(function(err, messages){
+				if(!err) {
+					room.messages = messages;
+					res.jsonp(room);
+				}
+			});
+		}
+	});
+};
+
 exports.addUser = function(req, res, next) {
 	Chatroom.findOne({
 		id: req.chatroom_id
@@ -28,34 +47,36 @@ exports.addUser = function(req, res, next) {
 
 			for (var i = users.length - 1; i >= 0; i--) {
 				if( users[i].user_id == req.user_id) {
-					res.render('error', {status: 500});
+					res.jsonp({success : false});
 				}
 			};
 
 			users[users.length] = req.user_id;
-			
+			res.jsonp({success : true});
 		}
 	});
 }
 
 exports.create = function(req, res, next) {
 	var chatroom = new Chatroom(req.body);
-	chatroom.save(function(err){
+	chatroom.save(function(err, room){
+		var response = {};
 		if (err) {
 	        switch (err.code) {
 	            case 11000:
 	            case 11001:
-	                message = 'Lijst bestaat al';
+	                response.message = 'Lijst bestaat al';
 	                break;
 	            default:
-	                message = 'Vul aub alle velden in';
+	                response.message = 'Vul aub alle velden in';
 	        }
-
-	        res.render('error', {
-	            status: 500
-	        });
+	        response.success = false;
+	    } else {
+	    	response.success = true;
+	    	response.id 	 = room._id;
 	    }
-	    res.jsonp(chatroom);
+	    
+	    res.jsonp(response);
 	});
 };
 
