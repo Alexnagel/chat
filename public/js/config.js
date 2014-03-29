@@ -10,15 +10,18 @@ angular.module('chat').config(['$stateProvider', '$urlRouterProvider',
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: "views/index.html"
+        templateUrl: "views/index.html",
+        authenticate: false
       })
       .state('signup', {
         url: '/signup',
-        templateUrl: 'views/signup.html'
+        templateUrl: 'views/signup.html',
+        authenticate: false
       })
       .state('chatroom', {
         url: '/chatroom/:chatroomId',
-        templateUrl: 'views/layouts/chatroom.html'
+        templateUrl: 'views/layouts/chatroom.html',
+        authenticate: true
       });
 }
 ]);

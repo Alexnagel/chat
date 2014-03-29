@@ -1,1 +1,60 @@
-<h2>Hello</h2>
+<div ng-controller="IndexController">
+  <div ng-switch on="global.authenticated">
+    <div ng-switch-when="true">
+      <div class="col-md-7">
+        <div class="col-md-8">
+          <h2>Profiel</h2>
+          <div class="col-md-6">
+            Name:<br />
+            Username:<br />
+            Email:<br />
+            Description:
+          </div>
+          <div class="col-md-6">
+            {{ global.user.name }}<br />
+            {{ global.user.username }}<br />
+            {{ global.user.email }}
+          </div>
+          <div class="panel panel-default col-md-12" style="margin:5px 0px 0px 15px;">
+            <div class="panel-body">
+              bio
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" style="margin-top:50px;">
+          <img src="http://static.freepik.com/free-photo/super-simple-avatar_318-1018.jpg" alt="avatar" class="img-thumbnail" style="width:150px; height:150px">
+        </div>
+      </div>
+    </div>
+    <div ng-switch-when="false">
+      <div class="jumbotron" style="padding:10px 15px 15px 15px;">
+        <div class="container">
+          <h1>Hello, world!</h1>
+          <p>Dit is onze chatroom applicatie, C.R.A.L.! <b>C</b>hat<b>R</b>oom van <b>A</b>lex Nagelkerke en <b>L</b>uke Buitendijk.</p>
+        </div>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Progress report #24</h3>
+          <p>
+            Day 45.<br />
+            Ze denken nog steeds dat ik een website ben.
+          </p>
+        </div>
+        <div class="col-md-4">
+          <h3>Ontwikkelprocess Frontend</h3>
+          <p>Frontend wordt ontwikkeld. </p>
+        </div>
+        <div class="col-md-4">
+          <h3>Ontwikkelprocess Backend</h3>
+          <p>
+            We zijn er over eens dat Laravel het niet gaat worden.<br />
+            We zijn nu overgestapt naar mean.io (Node.js)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

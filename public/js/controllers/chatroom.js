@@ -48,9 +48,9 @@ angular.module('chat.system').controller('ChatroomController', ['$scope', '$loca
 
             socket.emit('userConnect', {user_id: $scope.global.user._id});
             socket.on('userConnected', function(data){
-                if(data != []) {
-                    for (var i = data.length - 1; i >= 0; i--) {
-                        setMessage(data[i]);
+                if(data != false) {
+                    for (var i = data.messages.length - 1; i >= 0; i--) {
+                        setMessage(data.messages[i]);
                     };
                 }
             });
