@@ -11,10 +11,10 @@
           <a class="navbar-brand" ui-route="/" href="#!/">C.R.A.L.</a><!-- Navigation to index -->
         </div><!--/. navbar-header -->
 
-        <div class="navbar-collapse collapse" id="main-navbar"><!-- Sign in form if not logged in -->
+        <div class="navbar-collapse collapse" id="main-navbar">
           
-          <ul class="navbar-nav nav">
-            <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
+          <ul class="nav navbar-nav">
+            <li data-ng-repeat="item in menu" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
                 <a href="#!/{{item.link}}">{{item.title}}</a>
             </li>  
           </ul>
