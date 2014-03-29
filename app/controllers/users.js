@@ -37,7 +37,7 @@ exports.signup = function(req, res) {
  * Logout
  */
 exports.signout = function(req, res) {
-    req.logout();
+    req.logOut();
     res.redirect('/');
 };
 
@@ -45,7 +45,7 @@ exports.signout = function(req, res) {
  * Session
  */
 exports.session = function(req, res) {
-    res.redirect('/');
+    res.jsonp(req.user || null);
 };
 
 /**
@@ -74,7 +74,7 @@ exports.create = function(req, res, next) {
         }
         req.logIn(user, function(err) {
             if (err) return next(err);
-            return res.redirect('/');
+            return res.jsonp(req.user || null);
         });
     });
 };
