@@ -11,10 +11,6 @@ var mongoose = require('mongoose'),
  * The Message Schema
  */
 var MessageSchema = new Schema({
-	id: {
-		type: Number,
-		required: true
-	},
 	chatroom_id: {
 		type: Number,
 		required: true

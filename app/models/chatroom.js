@@ -4,16 +4,14 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Schema   = mongoose.Schema,
-    crypto   = require('crypto');
+    Schema   = mongoose.Schema;
 
 /**
  * The Chatroom Schema
  */
 var ChatroomSchema = new Schema({
 	id: {
-		type: Number,
-		required: true
+		type: Number
 	},
 	name: {
 		type: String,

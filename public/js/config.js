@@ -15,6 +15,10 @@ angular.module('chat').config(['$stateProvider', '$urlRouterProvider',
       .state('signup', {
         url: '/signup',
         templateUrl: 'views/signup.html'
+      })
+      .state('chatroom', {
+        url: '/chatroom/:chatroomId',
+        templateUrl: 'views/layouts/chatroom.html'
       });
 }
 ]);
