@@ -22,20 +22,7 @@ var ChatroomSchema = new Schema({
 		required: true
 	},
 	description: String,
-	users : {
-		user_id: Number
-	}
+	users : [String]
 });
-
-/**
- * Validation
- */
-var validatePresenceOf = function(value) {
-    return value && value.length;
-};
-
-ChatroomSchema.path('name').validate(function(name){
-	return (typeof name === 'string' && name.length > 0);
-}, 'Naam mag niet leeg zijn');
 
 mongoose.model('Chatroom', ChatroomSchema);

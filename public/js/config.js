@@ -22,6 +22,16 @@ angular.module('chat').config(['$stateProvider', '$urlRouterProvider',
         url: '/chatroom/:chatroomId',
         templateUrl: 'views/layouts/chatroom.html',
         authenticate: true
+      })
+      .state('all chatrooms', {
+        url: '/chatrooms',
+        templateUrl: 'views/layouts/chatrooms.html',
+        authenticate: true
+      })
+      .state('new chatroom', {
+        url: '/chatrooms/new',
+        templateUrl: 'views/layouts/newChatroom.html',
+        authenticate: true
       });
 }
 ]);

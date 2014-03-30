@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('chat.system').controller('ChatroomController', ['$scope', '$stateParams', '$location', 'Global', 'Chatrooms', 'ChatroomCreate', 'socket', 
-                                                                    function ($scope, $stateParams, $location, Global, Chatrooms, ChatroomCreate, socket) {
+angular.module('chat.system').controller('ChatroomController', ['$scope', '$stateParams', '$location', '$modal', 'Global', 'Chatrooms', 'ChatroomCreate', 'socket', 
+                                                                    function ($scope, $stateParams, $location, $modal, Global, Chatrooms, ChatroomCreate, socket) {
     $scope.global = Global;
 
     $scope.addMessage = function(){
@@ -16,16 +16,20 @@ angular.module('chat.system').controller('ChatroomController', ['$scope', '$stat
     };
 
     $scope.createChatroom = function(){
-        ChatroomCreate.save(null, {
-            name:       $scope.chatroomName,
-            owner_id:   $scope.global.user._id
-        }, function(response){
-            if(response.success) {
-                $location.path('/chatroom/' + response.id).replace();
-            } else {
-                // TODO
-            }
-        });
+        if($scope.chatroomName != "") {
+            var chatroom_id = 0;
+            ChatroomCreate.save(null, {
+                name:       $scope.chatroomName,
+                owner_id:   $scope.global.user._id
+            }, function(response){
+                console.log(response);
+                if(response.success) {
+                    $location.path('chatroom/' + response.id).replace();
+                } else {
+                    // TODO
+                }
+            });
+        }
     };
 
     $scope.getChatroom = function() {

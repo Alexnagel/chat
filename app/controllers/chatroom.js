@@ -59,45 +59,6 @@ exports.create = function(req, res, next) {
 	});
 };
 
-exports.addUser = function(req, res, next) {
-	Chatroom.findOne({
-		id: req.chatroom_id
-	})
-	.exec(function(err, room){
-		if(!err) {
-			var users = room.users;
-
-			for (var i = users.length - 1; i >= 0; i--) {
-				if( users[i].user_id == req.user_id) {
-					res.jsonp({success : false});
-				}
-			};
-
-			users[users.length] = req.user_id;
-			res.jsonp({success : true});
-		}
-	});
-};
-
-exports.removeUser = function(req, res, next) {
-	Chatroom.findOne({
-		id: req.chatroom_id
-	})
-	.exec(function(err, room){
-		if(!err) {
-			var users = room.users;
-
-			for (var i = users.length - 1; i >= 0; i--) {
-				if( users[i].user_id == req.user_id) {
-					users.splice(i, 1);
-					res.jsonp({success : true});
-				}
-			};
-		}
-		res.jsonp({success : false});
-	});
-};
-
 exports.delete = function(req, res, next, id) {
 	Chatroom.findOne({
 		id: id

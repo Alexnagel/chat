@@ -4,8 +4,11 @@ angular.module('chat.system').controller('HeaderController', ['$scope', 'Global'
     $scope.global = Global;
 
     $scope.menu = [{
-        'title': 'Chatroom',
-        'link': 'chatroom/1'
+        'title': 'Chatrooms',
+        'link': 'chatrooms'
+    },{
+        'title': 'New Chatroom',
+        'link': 'chatrooms/new'
     }];
 
     $scope.submit = function() {
