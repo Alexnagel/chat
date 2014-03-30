@@ -9,53 +9,32 @@ var mongoose 	= require('mongoose'),
 
 exports.chatroom = function(req, res, next, id) {
 	Chatroom.findOne({
-            id: id
+            _id: id
         })
         .exec(function(err, room) {
-            if (err) return next(err);
-            if (!room) return next(new Error('Failed to load Chatroom with id: ' + id));
+            if (!room) req.chatroom = null;
             req.chatroom = room;
             next();
         });
 };
 
 exports.getChatroom = function(req, res) {
-	Chatroom.findOne({
-		id: req.chatroomId
-	})
-	.exec(function(err, room){
-		if(!err) {
-			Message.find({
-				chatroom_id: req.chatroomId
-			}).exec(function(err, messages){
-				if(!err) {
-					room.messages = messages;
-					res.jsonp(room);
-				}
-			});
-		}
-	});
+	if(req.chatroom != null) {
+		var room = req.chatroom;
+
+		Message.find({
+			chatroom_id: req.chatroomId
+		}).exec(function(err, messages){
+			if(!err) {
+				room.messages = messages;
+				res.jsonp({chatroom : room});
+			}
+		});
+
+	} else {
+		res.jsonp({chatroom : false});
+	}
 };
-
-exports.addUser = function(req, res, next) {
-	Chatroom.findOne({
-		id: req.chatroom_id
-	})
-	.exec(function(err, room){
-		if(!err) {
-			var users = room.users;
-
-			for (var i = users.length - 1; i >= 0; i--) {
-				if( users[i].user_id == req.user_id) {
-					res.jsonp({success : false});
-				}
-			};
-
-			users[users.length] = req.user_id;
-			res.jsonp({success : true});
-		}
-	});
-}
 
 exports.create = function(req, res, next) {
 	var chatroom = new Chatroom(req.body);
@@ -77,6 +56,45 @@ exports.create = function(req, res, next) {
 	    }
 	    
 	    res.jsonp(response);
+	});
+};
+
+exports.addUser = function(req, res, next) {
+	Chatroom.findOne({
+		id: req.chatroom_id
+	})
+	.exec(function(err, room){
+		if(!err) {
+			var users = room.users;
+
+			for (var i = users.length - 1; i >= 0; i--) {
+				if( users[i].user_id == req.user_id) {
+					res.jsonp({success : false});
+				}
+			};
+
+			users[users.length] = req.user_id;
+			res.jsonp({success : true});
+		}
+	});
+};
+
+exports.removeUser = function(req, res, next) {
+	Chatroom.findOne({
+		id: req.chatroom_id
+	})
+	.exec(function(err, room){
+		if(!err) {
+			var users = room.users;
+
+			for (var i = users.length - 1; i >= 0; i--) {
+				if( users[i].user_id == req.user_id) {
+					users.splice(i, 1);
+					res.jsonp({success : true});
+				}
+			};
+		}
+		res.jsonp({success : false});
 	});
 };
 

@@ -1,19 +1,8 @@
 'use strict';
 
-angular.module('chat.system').controller('ChatroomController', ['$scope', '$location', 'Global', 'Chatrooms', 'ChatroomCreate', 'socket', 
-                                                                    function ($scope, $location, Global, Chatrooms, ChatroomCreate, socket) {
+angular.module('chat.system').controller('ChatroomController', ['$scope', '$stateParams', '$location', 'Global', 'Chatrooms', 'ChatroomCreate', 'socket', 
+                                                                    function ($scope, $stateParams, $location, Global, Chatrooms, ChatroomCreate, socket) {
     $scope.global = Global;
-
-    $scope.title = "Chatroom A";
-
-    $scope.messages = [{
-    	content: "dsfdsfsd",
-    	user: {name:"leo"}
-    },
-    {
-    	content: "blabllalb",
-    	user: {name:"leo"}
-    }];
 
     $scope.addMessage = function(){
     	var message = {
@@ -29,8 +18,7 @@ angular.module('chat.system').controller('ChatroomController', ['$scope', '$loca
     $scope.createChatroom = function(){
         ChatroomCreate.save(null, {
             name:       $scope.chatroomName,
-            //owner_id:   $scope.global.user._id;
-            owner_id:   1
+            owner_id:   $scope.global.user._id
         }, function(response){
             if(response.success) {
                 $location.path('/chatroom/' + response.id).replace();
@@ -43,17 +31,26 @@ angular.module('chat.system').controller('ChatroomController', ['$scope', '$loca
     $scope.getChatroom = function() {
         Chatrooms.get({
             chatroomId: $stateParams.chatroomId
-        }, function(chatroom){
-            $scope.chatroom = chatroom;
+        }, function(room){
+            if(room.chatroom) {
+                $scope.chatroom = room.chatroom;
 
-            socket.emit('userConnect', {user_id: $scope.global.user._id});
-            socket.on('userConnected', function(data){
-                if(data != false) {
-                    for (var i = data.messages.length - 1; i >= 0; i--) {
-                        setMessage(data.messages[i]);
-                    };
-                }
-            });
+                socket.emit('userConnect', { user_id: $scope.global.user._id, chatroom_id: $scope.chatroom._id });
+                
+                socket.on('userConnected', function(data){
+                    if(data != false) {
+
+                        if (data.messages.length > 0) {
+                            for (var i = data.messages.length - 1; i >= 0; i--) {
+                                setMessage(data.messages[i]);
+                            };
+                        } else 
+                            setMessage('No messages in this chat');
+                    }
+                });
+            } else {
+                $location.path('/').replace();
+            }
         });
     };
 
