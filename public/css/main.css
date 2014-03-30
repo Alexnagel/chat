@@ -1,7 +1,9 @@
 /**
  * Main CSS styles
  */
-
+.panel-body{
+	height: 500px;
+}
 
 /**
  * Footer style

@@ -1,3 +1,4 @@
-<div class="row">
-  <div class="col-md-8" data-ng-include="'views/partials/chat.html'">
+<div class="row" data-ng-controller="ChatroomController" data-ng-init="getChatroom()">
+  <div class="col-md-8" data-ng-include="'views/partials/chat.html'"></div>
+  <div class="col-md-4" data-ng-include="'views/partials/users.html'"></div>
 </div>

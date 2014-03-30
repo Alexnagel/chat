@@ -18,6 +18,16 @@ exports.chatroom = function(req, res, next, id) {
         });
 };
 
+exports.getChatrooms = function(req, res, next) {
+	Chatroom.find().sort('-created').populate('users', 'name username').exec(function(err, chatrooms) {
+        if (err) {
+            res.jsonp([]);
+        } else {
+            res.jsonp(chatrooms);
+        }
+    });
+};
+
 exports.getChatroom = function(req, res) {
 	if(req.chatroom != null) {
 		var room = req.chatroom;

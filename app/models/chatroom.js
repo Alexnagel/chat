@@ -22,7 +22,11 @@ var ChatroomSchema = new Schema({
 		required: true
 	},
 	description: String,
-	users : [String]
+	users : [ { type: Schema.ObjectId, ref: 'User' } ],
+	created: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 mongoose.model('Chatroom', ChatroomSchema);

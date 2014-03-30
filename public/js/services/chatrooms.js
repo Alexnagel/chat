@@ -9,3 +9,7 @@ angular.module('chat.system').factory('Chatrooms', ['$resource', function($resou
 angular.module('chat.system').factory('ChatroomCreate', ['$resource', function($resource) {
     return $resource('chatroom', null);
 }]);
+
+angular.module('chat.system').factory('AllChatrooms', ['$resource', function($resource) {
+    return $resource('chatrooms', null);
+}]);

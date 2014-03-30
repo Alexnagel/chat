@@ -1,3 +1,12 @@
-<div class="" data-ng-controller="ChatroomController">
+<div class="" data-ng-controller="ChatroomController" data-ng-init="allChatrooms()">
 	<h2>All Chatrooms</h2>
+	<div class="col-md-6">
+		<ul class="nav nav-list nav-list-vivid">
+			<li data-ng-repeat="chat in chatrooms">
+				<a href="#!/chatroom/{{chat._id}}">{{ chat.name }}
+					<span class="badge pull-right">{{ chat.users.length }}</span>
+				</a>
+			</li>
+		</ul>
+	</div>
 </div>
