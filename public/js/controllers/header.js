@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('chat.system').controller('HeaderController', ['$scope', 'Global', 'SignInAuth', function ($scope, Global, SignInAuth) {
+angular.module('chat.system').controller('HeaderController', ['$scope', 'Global', 'SignInAuth', 'SignOutAuth', function ($scope, Global, SignInAuth, SignOutAuth) {
     $scope.global = Global;
 
     $scope.menu = [{
@@ -22,11 +22,19 @@ angular.module('chat.system').controller('HeaderController', ['$scope', 'Global'
                     window.user = tmpUser;
                     Global.user = tmpUser;
                     Global.authenticated = true;
-
-                    $state.transitionTo("loggedIn");
                 }
             });
     	}
+    };
+
+    $scope.signOut = function() {
+        if(Global.authenticated) {
+            SignOutAuth.logout(function() {
+                window.user = null;
+                Global.user = null;
+                Global.authenticated = false;
+            });
+        }
     };
 
     $scope.isCollapsed = false;
