@@ -6,7 +6,8 @@
 var express     = require('express'),
     fs          = require('fs'),
     passport    = require('passport'),
-    logger      = require('mean-logger');
+    logger      = require('mean-logger'),
+    socketio    = require('socket.io');
 
 /**
  * Main application entry file.
@@ -71,8 +72,12 @@ walk(routes_path);
 
 
 // Start the app by listening on <port>
-var port = process.env.PORT || config.port;
-app.listen(port);
+var port     = process.env.PORT || config.port;
+var server   = require('http').createServer(app);
+socketio.listen(server);
+
+server.listen(port);
+
 console.log('Express app started on port ' + port);
 
 // Initializing logger

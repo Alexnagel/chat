@@ -14,7 +14,7 @@
         <div class="navbar-collapse collapse" id="main-navbar">
           
           <ul class="nav navbar-nav">
-            <li data-ng-repeat="item in menu" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
+            <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
                 <a href="#!/{{item.link}}">{{item.title}}</a>
             </li>  
           </ul>
@@ -39,7 +39,12 @@
                     {{global.user.name}} <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/signout">Signout</a>
+                    <li>
+                      <a href="#!/">Profile</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                      <a href="/signout">Signout</a>
                     </li>
                 </ul>
             </li>
