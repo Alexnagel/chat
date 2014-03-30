@@ -3,7 +3,7 @@
     <div ng-switch-when="true">
       <div class="col-md-7">
         <div class="col-md-8">
-          <h2 class="pull-left">Profiel</h2><a ng-click="editProfile()" href="#!/editProfile" style="margin-left:50px;"><span class="glyphicon glyphicon-edit" style="margin-top:60px"></span></a>
+          <h2 class="pull-left">Profile</h2><a ui-route="/editProfile" href="#!/editProfile" style="margin-left:50px;"><span class="glyphicon glyphicon-edit" style="margin-top:60px"></span></a>
           <div class="clearfix"></div>
           <div class="col-md-6">
             Name:<br />
@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="col-md-4" style="margin-top:50px;">
-          <img src="{{ global.user.image }}" alt="avatar" class="img-thumbnail" style="width:150px; height:150px">
+          <img ng-src="{{ global.user.image }}" alt="avatar" class="img-thumbnail" style="width:150px; height:150px">
         </div>
       </div>
     </div>

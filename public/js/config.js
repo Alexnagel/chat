@@ -18,6 +18,11 @@ angular.module('chat').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'views/signup.html',
         authenticate: false
       })
+      .state('editprofile', {
+        url: '/editProfile',
+        templateUrl: 'views/editProfile.html',
+        authenticate: true
+      })
       .state('chatroom', {
         url: '/chatroom/:chatroomId',
         templateUrl: 'views/layouts/chatroom.html',
