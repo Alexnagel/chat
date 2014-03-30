@@ -54,8 +54,11 @@ exports.session = function(req, res) {
 exports.create = function(req, res, next) {
     var user = new User(req.body);
     var message = null;
+    user.description = "Fill in your bio!";
+    user.image = "http://static.freepik.com/free-photo/super-simple-avatar_318-1018.jpg";
 
     user.provider = 'local';
+
     user.save(function(err) {
         if (err) {
             switch (err.code) {

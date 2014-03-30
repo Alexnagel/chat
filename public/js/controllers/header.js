@@ -12,16 +12,13 @@ angular.module('chat.system').controller('HeaderController', ['$scope', 'Global'
     	if($scope.username && $scope.password) {
     		SignInAuth.login({username: $scope.username, password: $scope.password}, function(user) {
                 if(user != null) {
-                    var tmpUser = { __v: user.__v,
-                                _id: user._id,
-                                email: user.email,
-                                name: user.name,
-                                provider: user.provider,
-                                username: user.username};
-
-                    window.user = tmpUser;
-                    Global.user = tmpUser;
+                    window.user = user;
+                    Global.user = user;
                     Global.authenticated = true;
+                    
+                    // Resetting the fields
+                    $scope.username = null;
+                    $scope.password = null;
                 }
             });
     	}
