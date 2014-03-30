@@ -1,0 +1,16 @@
+<div data-ng-controller="ChatroomController">
+	<h2>Create a new chatroom</h2>
+	<form class="form-horizontal col-md-6" role="form" ng-submit="createChatroom()">
+	    <div class="form-group">
+	        <label class="col-md-4 control-label" for="fullname">Chatroom Name</label>
+	        <div class="col-md-8">
+	            <input id="name" class="form-control" type="text" ng-model="chatroomName" name="chatroomname" placeholder="Name for the chatroom" required/>
+	        </div>
+	    </div>
+	    <div class="form-group">
+	        <div class="col-md-12">
+	            <button class="btn btn-primary pull-right" type="submit">Create Chatroom</button>
+	        </div>
+	    </div>
+	</form>
+</div>
