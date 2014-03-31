@@ -11,7 +11,10 @@ exports.chatroom = function(req, res, next, id) {
 	Chatroom.findOne({
             _id: id
         })
+		.populate('users')
+		.populate('messages')
         .exec(function(err, room) {
+            console.log(err, room);
             if (!room) req.chatroom = null;
             req.chatroom = room;
             next();
@@ -31,18 +34,9 @@ exports.getChatrooms = function(req, res, next) {
 exports.getChatroom = function(req, res) {
 	if(req.chatroom != null) {
 		var room = req.chatroom;
-
-		Message.find({
-			chatroom_id: req.chatroomId
-		}).exec(function(err, messages){
-			if(!err) {
-				room.messages = messages;
-				res.jsonp({chatroom : room});
-			}
-		});
-
+		res.jsonp(room);
 	} else {
-		res.jsonp({chatroom : false});
+		res.jsonp(false);
 	}
 };
 
@@ -69,14 +63,8 @@ exports.create = function(req, res, next) {
 	});
 };
 
-exports.delete = function(req, res, next, id) {
-	Chatroom.findOne({
-		id: id
-	})
-	.remove()
-	.exec(function(err){
-		if(err) {
-			res.render('error', { status : 500 } );
-		}
-	});
+exports.destroy = function(req, res, next) {
+	var chatroom = req.chatroom;
+
+	chatroom.remove();
 };

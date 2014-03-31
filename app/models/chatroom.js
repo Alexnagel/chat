@@ -23,6 +23,7 @@ var ChatroomSchema = new Schema({
 	},
 	description: String,
 	users : [ { type: Schema.ObjectId, ref: 'User' } ],
+	messages : [ { type: Schema.ObjectId, ref: 'Message' } ],
 	created: {
         type: Date,
         default: Date.now

@@ -5,6 +5,46 @@
 	height: 500px;
 }
 
+.message{
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	padding: 5px 0;
+	border-bottom: 1px solid #535c70;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+
+}
+	.avatar{
+		width: 80px;
+	}
+		.avatar > img{
+			width: 100%;
+			display: block;
+		}
+
+	.message-content {
+		margin-left: 10px;
+		width: 100%;
+	}
+		.username, .message-content p{
+			margin:0;
+			font-size: 16px;
+		}
+		.username{
+			color: #9fa7b7;
+			font-size: 20px;
+		}
+		.message-timestamp {
+			font-size: 0.7em;
+			margin-top: 5px;
+			float: right;
+		}
+
+.delete-chat {
+	margin-top: -3px;
+}
+
 /**
  * Footer style
  */

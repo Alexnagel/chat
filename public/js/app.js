@@ -11,4 +11,16 @@ angular.module('chat.system', [])
         event.preventDefault(); 
       }
     });
-  });
+  })
+  .filter('getById', function() {
+  return function(input, id, element) {
+    var i=0, len=input.length;
+    for (; i<len; i++) {
+      if (input[i]._id == id[0]._id) {
+
+        return input[i].name;
+      }
+    }
+    return null;
+  }
+});

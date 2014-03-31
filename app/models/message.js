@@ -12,18 +12,18 @@ var mongoose = require('mongoose'),
  */
 var MessageSchema = new Schema({
 	chatroom_id: {
-		type: Number,
+		type: String,
 		required: true
 	},
-	user_id: {
-		type: Number,
-		required: true
-	},
+	user_id: { type: Schema.ObjectId, ref: 'User' },
 	content: {
 		type: String,
 		required: true
 	},
-	timestamp: Date
+	timestamp: {
+		type: Date,
+		default: Date.now
+	}
 });
 
 /**

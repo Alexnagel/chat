@@ -30,8 +30,8 @@ angular.module('chat.system').controller('HeaderController', ['$scope', 'Global'
   $scope.signOut = function() {
     if(Global.authenticated) {
       SignOutAuth.logout(function() {
-        window.user = null;
-        Global.user = null;
+        window.user = false;
+        Global.user = false;
         Global.authenticated = false;
       });
     }
@@ -44,7 +44,7 @@ angular.module('chat.system').controller('HeaderController', ['$scope', 'Global'
       Global.user = user;
       Global.authenticated = true;
     } else {
-      window.user = null;
+      window.user = false;
       Global.user = null;
       Global.authenticated = false;
     }

@@ -20,24 +20,29 @@ exports.getUsers = function(chatroom_id, callback) {
 	});
 };
 
-exports.addUser = function(chatroom_id, user_id, callback) {
-	Chatroom.findById(chatroom_id, function(err, room){
-		if(!err) {
+exports.addUser = function(chatroom_id, user, callback) {
+	Chatroom.findOne({ _id: chatroom_id})
+	.populate('users')
+	.exec(function(err, room){
+		if(room != null) {
 			var users = room.users;
+		}
 
+		if(!err) {
+			var pushName = true;
 			for (var i = users.length - 1; i >= 0; i--) {
-				if( users[i] == user_id) {
-					return {success : false};
+				if( users[i]._id == user._id) {
+					pushName = false;
 				}
 			};
 
-			users.push(user_id);
-			room.users = users;
-			room.save();
-
-			return {success : true};
+			if(pushName) {
+				users.push(user);
+				room.users = users;
+				room.save();
+			}
 		}
-		return {success : false };
+		callback(users);
 	});
 };
 
@@ -48,17 +53,19 @@ exports.removeUser = function(chatroom_id, user_id) {
 	})
 	.exec(function(err, room){
 		if(!err) {
-			var users = room.users;
+			if (room != null) {
+				var users = room.users;
 
-			for (var i = users.length - 1; i >= 0; i--) {
-				if( users[i] == user_id) {
-					users.splice(i, 1);
+				for (var i = users.length - 1; i >= 0; i--) {
+					if( users[i] == user_id) {
+						users.splice(i, 1);
 
-					room.save();
+						room.save();
 
-					return {success : true};
-				}
-			};
+						return {success : true};
+					}
+				};
+			}
 		}
 		return {success : false};
 	});
@@ -66,15 +73,30 @@ exports.removeUser = function(chatroom_id, user_id) {
 
 exports.getUser = function(user_id, callback) {
 	User.findOne({_id : user_id})
-	.exec(callback)
+	.exec(callback);
 };
 
-exports.addMessage = function(message) {
+exports.addMessage = function(message, callback) {
 	var message = new Message(message);
 
-	message.save(function(err){
+	message.save(function(err, message){
 		if(err) {
 			return false;
+		} else {
+
+			Chatroom.findOne({ _id: message.chatroom_id})
+			.populate('messages')
+			.exec(function(err, room){
+				console.log(err, room);
+				for (var i = room.messages.length - 1; i >= 0; i--) {
+					if( room.messages[i]._id == message._id) {
+						return false;
+					}
+				};
+				room.messages.push(message);
+				room.save();
+				callback();
+			});
 		}
 	});
 };
