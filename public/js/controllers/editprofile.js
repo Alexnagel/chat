@@ -3,14 +3,12 @@
 angular.module('chat.system').controller('EditProfileController', ['$scope', 'Global', function ($scope, Global) {
     $scope.global = Global;
 
-    $scope.submit = function() {
-    	console.log(Global.user);
-	    Global.user.name = $scope.fullname;
-	    Global.user.username = $scope.username;
-	    Global.user.email = $scope.email;
-	    Global.user.description = $scope.description;
-	    Global.user.image = $scope.imageURL;
-    	console.log(Global.user);
+    $scope.submit = function(fullname, username, email, description, imageURL) {
+	    Global.user.name = fullname;
+	    Global.user.username = username;
+	    Global.user.email = email;
+	    Global.user.description = description;
+	    Global.user.image = imageURL;
     	
     	Global.user.$save();
     };

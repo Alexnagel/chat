@@ -88,6 +88,7 @@ angular.module('chat.system').controller('ChatController', ['$scope', '$statePar
             if(room) {
                 $scope.chatroom = room;
                 $scope.users    = room.users;
+                console.log($scope.users);
                 $scope.messages = room.messages;
 
                 socket.emit('userConnect', { user: $scope.global.user, chatroom_id: $scope.chatroom._id });

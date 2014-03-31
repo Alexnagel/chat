@@ -11,10 +11,10 @@
 
       <div ng-repeat="message in messages" class="message col-sm-12" data-username="{{ message.user.name }}" data-message-id="{{ message._id }}" data-profile-pic="">
         <div class="avatar">
-          <img class="img-circle" src="http://gravatar.com/avatar/d9729feb74992cc3482b350163a1a010?size=60" alt="profile picture">
+          <img class="img-circle" ng-src="{{ users|getImage:users:message.user:image }}" alt="profile picture">
         </div>
         <div class="message-content">
-          <h6 class="username">{{ users|getById:users:message.user:name }}</h6>
+          <h6 class="username">{{ users|getName:users:message.user:name }}</h6>
           <p class="message-text">{{ message.content }}</p>
           <time class="text-muted message-timestamp" datetime="{{ message.timestamp }}">een paar seconden geleden</time>
         </div>

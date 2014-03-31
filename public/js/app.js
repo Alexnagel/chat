@@ -12,15 +12,28 @@ angular.module('chat.system', [])
       }
     });
   })
-  .filter('getById', function() {
-  return function(input, id, element) {
-    var i=0, len=input.length;
-    for (; i<len; i++) {
-      if (input[i]._id == id[0]._id) {
-
-        return input[i].name;
+  .filter('getName', function() {
+    return function(input, id, element) {
+      var i=0, len=input.length;
+      for (; i<len; i++) {
+        console.log(id);
+        if (input[i]._id == id[0]._id) {
+          console.log(input[i].name, id);
+          return input[i].name;
+        }
       }
+      return null;
     }
-    return null;
-  }
-});
+  })
+  .filter('getImage', function() {
+    return function(input, id, element) {
+      var i=0, len=input.length;
+      for (; i<len; i++) {
+        if (input[i]._id == id[0]._id) {
+
+          return input[i].image;
+        }
+      }
+      return null;
+    }
+  });

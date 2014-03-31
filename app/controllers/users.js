@@ -89,6 +89,27 @@ exports.me = function(req, res) {
     res.jsonp(req.user || null);
 };
 
+exports.saveMe = function(req, res) {
+    var user = new User(req.body);
+
+    User.findOne({
+        _id: req.body._id
+    }).exec(function(err, oldUser){
+        if(!err) {
+            console.log(user, 'user');
+            console.log(oldUser, 'oldUser');
+            
+            oldUser.name        = user.name;
+            oldUser.username    = user.username;
+            oldUser.email       = user.email;
+            oldUser.image       = user.image;
+            oldUser.description = user.description;
+
+            oldUser.save();   
+        }
+    });
+}
+
 /**
  * Find user by id
  */
