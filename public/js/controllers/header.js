@@ -38,7 +38,7 @@ angular.module('chat.system').controller('HeaderController', ['$scope', 'Global'
   };
 
   Global.user = GetUser.get(function(user){
-    if(user)
+    if(user && user[0] != 'n')
     {
       window.user = user;
       Global.user = user;

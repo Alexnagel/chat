@@ -70,10 +70,7 @@ exports.create = function(req, res, next) {
                     message = 'Vul aub alle velden in';
             }
 
-            return res.render('users/signup', {
-                message: message,
-                user: user
-            });
+            return res.send('false');
         }
         req.logIn(user, function(err) {
             if (err) return next(err);

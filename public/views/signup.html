@@ -4,6 +4,10 @@
       <p>You are already logged in and do not need to create an account</p>
     </div>
     <div ng-switch-when="false">
+			<div class="alert alert-danger alert-dismissable" ng-show="message">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<strong>Error!</strong> {{ message }}
+			</div>
 			<h2>Sign up</h2>
 			<form class="form-horizontal" role="form" ng-submit="submit(fullname, email, username, password)">
 			    <div class="form-group">
